@@ -16,6 +16,8 @@ public class LineRendererHelper : MonoBehaviour
 
     private void Update()
     {
-        lineRenderer.SetPositions(line.GetPositions());
+        Vector3[] vs = line.GetPositions();
+        lineRenderer.positionCount = vs.Length;
+        lineRenderer.SetPositions(vs);
     }
 }
