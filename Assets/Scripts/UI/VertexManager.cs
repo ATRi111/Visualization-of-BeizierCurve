@@ -9,12 +9,12 @@ public class VertexManager : MonoBehaviour ,ILine
     private IObjectManager objectManager;
     private IEventSystem eventSystem;
 
-    private readonly List<DraggableVertex> vertices = new List<DraggableVertex>();
+    private readonly List<DraggableVertex> vertices = new();
 
     [SerializeField]
     private float selectedDistance;
+    [SerializeField]
     private int selectedIndex;
-
     [SerializeField]
     private Color color_selected;
     [SerializeField]
@@ -30,7 +30,7 @@ public class VertexManager : MonoBehaviour ,ILine
         DraggableVertex[] temp = GetComponentsInChildren<DraggableVertex>();
         vertices.AddRange(temp);
         selectedIndex = -1;
-        dirty = false;
+        dirty = true;
         UpdatePositions();
     }
 
@@ -42,6 +42,19 @@ public class VertexManager : MonoBehaviour ,ILine
     {
         eventSystem.RemoveListener(EEvent.AfterVertexChange, AfterVertexChange);
     }
+
+
+    private void Update()
+    {
+        UpdateIndex();
+        UpdateColor();
+    }
+
+    private void OnDestroy()
+    {
+        ObjectPoolUtility.RecycleMyObjects(gameObject);
+    }
+
     private void AfterVertexChange()
     {
         dirty = true;
@@ -49,13 +62,15 @@ public class VertexManager : MonoBehaviour ,ILine
 
     public void GenerateVertex()
     {
-        objectManager.Activate("Vertex", DraggableVertex.MouseToWorld(0f), Vector3.zero, transform);
+        IMyObject obj = objectManager.Activate("Vertex", DraggableVertex.MouseToWorld(0f), Vector3.zero, transform);
+        vertices.Add(obj.Transform.GetComponent<DraggableVertex>());
         dirty = true;
     }
     public void DeleteVertex()
     {
         if(selectedIndex >= 0 && selectedIndex < vertices.Count)
         {
+            vertices[selectedIndex].GetComponent<MyObject>().Recycle();
             vertices.RemoveAt(selectedIndex);
             dirty = true;
         }
@@ -85,5 +100,29 @@ public class VertexManager : MonoBehaviour ,ILine
     {
         UpdatePositions();
         return vs;
+    }
+
+    private void UpdateIndex()
+    {
+        selectedIndex = -1;
+        if(vertices.Count > 0)
+        {
+            int minIndex = 0;
+            for (int i = 1; i < vertices.Count; i++)
+            {
+                if (vertices[i].SqrDistanceToMouse() < vertices[minIndex].SqrDistanceToMouse())
+                    minIndex = i;
+            }
+            if (vertices[minIndex].SqrDistanceToMouse() <= selectedDistance * selectedDistance)
+                selectedIndex = minIndex;
+        }
+    }
+
+    private void UpdateColor()
+    {
+        for (int i = 0; i < vertices.Count; i++)
+        {
+            vertices[i].SetColor(i == selectedIndex ? color_selected : color_notSelected);
+        }
     }
 }
