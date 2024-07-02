@@ -4,24 +4,35 @@ using UnityEngine.EventSystems;
 
 public class DraggableVertex : MonoBehaviour, IDragHandler
 {
-    public bool draggable;
-
-    private void OnEnable()
+    public static Vector3 MouseToWorld(float z)
     {
-
+        Vector3 temp = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        return temp.ResetZ(z);
     }
 
-    private void OnDisable()
-    {
+    public bool draggable;
+    private SpriteRenderer spriteRenderer;
 
+    private void Awake()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    public void SetColor(Color color)
+    {
+        spriteRenderer.color = color;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        if(!draggable) 
+        if(!draggable)
             return;
-        float z = transform.position.z;
-        Vector3 temp = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        temp.ResetZ(z);
+        transform.position = MouseToWorld(transform.position.z);
+    }
+
+    public void Align()
+    {
+        Vector3 v = transform.position;
+        transform.position = new Vector3(Mathf.RoundToInt(v.x), Mathf.RoundToInt(v.y), v.z);
     }
 }

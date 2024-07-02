@@ -11,28 +11,8 @@ namespace Services
         /// </summary>
         AfterLoadScene,
         /// <summary>
-        /// 显示或隐藏Area
+        /// 顶点发生变化
         /// </summary>
-        ShowArea,
-        /// <summary>
-        /// 刷新线段，参数:EdgeData
-        /// </summary>
-        AfterRefreshEdge,
-        /// <summary>
-        /// 使线段回到初始状态
-        /// </summary>
-        ResetEdge,
-        /// <summary>
-        /// 算法启动
-        /// </summary>
-        Launch,
-        /// <summary>
-        /// 算法前进一步
-        /// </summary>
-        MoveNext,
-        /// <summary>
-        /// 算法能否继续进行下一步
-        /// </summary>
-        HasNext,
+        AfterVertexChange,
     }
 }
