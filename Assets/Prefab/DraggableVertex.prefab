@@ -187,10 +187,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1352408706784166309}
   - component: {fileID: 516689914323051861}
-  - component: {fileID: 7796479612490812580}
+  - component: {fileID: 7311452436855608162}
   - component: {fileID: 6812589295655016902}
   m_Layer: 0
-  m_Name: Vertex
+  m_Name: DraggableVertex
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -256,7 +256,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -266,7 +266,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7796479612490812580
+--- !u!114 &7311452436855608162
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -275,9 +275,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7091302227227688240}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 05db0581be2226e4a9f6150c5286d624, type: 3}
+  m_Script: {fileID: 11500000, guid: 47154bc43f36f734592c3879a6ca6f0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  draggable: 0
 --- !u!114 &6812589295655016902
 MonoBehaviour:
   m_ObjectHideFlags: 0

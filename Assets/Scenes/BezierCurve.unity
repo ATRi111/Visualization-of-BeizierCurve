@@ -441,7 +441,7 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
---- !u!1001 &3509745362896711553
+--- !u!1001 &2104796541
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -451,7 +451,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4169068057870839637, guid: 4a621f4d172cd5445afee711bf72d8e4, type: 3}
       propertyPath: m_Name
-      value: VertexManager
+      value: DraggableVertexManager
       objectReference: {fileID: 0}
     - target: {fileID: 4722729850511170065, guid: 4a621f4d172cd5445afee711bf72d8e4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -504,5 +504,5 @@ SceneRoots:
   m_Roots:
   - {fileID: 50279570}
   - {fileID: 1972327220}
-  - {fileID: 3509745362896711553}
   - {fileID: 1449680748}
+  - {fileID: 2104796541}
