@@ -16,6 +16,13 @@ public class Area2D : MonoBehaviour
         return rectEditor.WorldRect.Contains(v);
     }
 
+    public Vector3 Restrict(Vector3 v)
+    {
+        float x = Mathf.Clamp(v.x,rectEditor.WorldRect.xMin,rectEditor.WorldRect.xMax);
+        float y = Mathf.Clamp(v.y,rectEditor.WorldRect.yMin,rectEditor.WorldRect.yMax);
+        return new Vector3(x, y, v.z);
+    }
+
     public void ShrinkToInt(out int xMin,out int xMax,out int yMin,out int yMax)
     {
         xMin = Mathf.CeilToInt(rectEditor.WorldRect.xMin);
