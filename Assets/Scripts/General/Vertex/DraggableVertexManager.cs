@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class DraggableVertexManager : VertexManager
 {
+    protected Area2D area;
+
     [SerializeField]
     private float selectedDistance;
     [SerializeField]
@@ -16,9 +18,10 @@ public class DraggableVertexManager : VertexManager
     protected override void Awake()
     {
         base.Awake();
-        selectedIndex = -1;
+        area = GetComponentInChildren<Area2D>();
         DraggableVertex[] temp = GetComponentsInChildren<DraggableVertex>();
         vertices.AddRange(temp);
+        selectedIndex = -1;
     }
 
     protected virtual void OnEnable()
@@ -44,7 +47,10 @@ public class DraggableVertexManager : VertexManager
 
     public override void GenerateVertex()
     {
-        IMyObject obj = objectManager.Activate("DraggableVertex", Vertex.MouseToWorld(0f), Vector3.zero, transform);
+        Vector3 p = Vertex.MouseToWorld(0f);
+        if(!area.Contains(p))
+            return;
+        IMyObject obj = objectManager.Activate("DraggableVertex", p, Vector3.zero, transform);
         vertices.Add(obj.Transform.GetComponent<Vertex>());
         dirty = true;
     }
