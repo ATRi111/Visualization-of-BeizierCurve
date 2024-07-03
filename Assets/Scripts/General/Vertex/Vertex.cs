@@ -1,8 +1,11 @@
+using System.Collections.Generic;
 using Tools;
 using UnityEngine;
 
 public class Vertex : MonoBehaviour
 {
+    public static HashSet<Vertex> allVertices = new();
+
     public static Vector3 MouseToWorld(float z)
     {
         Vector3 temp = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -13,7 +16,13 @@ public class Vertex : MonoBehaviour
 
     protected virtual void Awake()
     {
+        allVertices.Add(this);
         spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    protected virtual void OnDestroy()
+    {
+        allVertices.Remove(this);
     }
 
     public void SetColor(Color color)

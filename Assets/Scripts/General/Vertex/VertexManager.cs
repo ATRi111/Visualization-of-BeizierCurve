@@ -1,6 +1,7 @@
 using Services;
 using Services.Event;
 using Services.ObjectPools;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -36,7 +37,7 @@ public class VertexManager : MonoBehaviour, ILine
 
     protected virtual void Update()
     {
-
+        
     }
 
     protected virtual void OnDestroy()
@@ -44,11 +45,12 @@ public class VertexManager : MonoBehaviour, ILine
         ObjectPoolUtility.RecycleMyObjects(gameObject);
     }
 
-    public virtual void GenerateVertex()
+    public Vertex GenerateVertex(Vector3 position)
     {
-        IMyObject obj = objectManager.Activate("Vertex", Vertex.MouseToWorld(0f), Vector3.zero, transform);
-        vertices.Add(obj.Transform.GetComponent<Vertex>());
+        Vertex vertex = objectManager.Activate("Vertex", position, Vector3.zero, transform).Transform.GetComponent<Vertex>();
+        vertices.Add(vertex);
         dirty = true;
+        return vertex;
     }
     public void DeleteVertex(int index)
     {
@@ -69,8 +71,15 @@ public class VertexManager : MonoBehaviour, ILine
     }
     public void ClearVertices()
     {
-        vertices.Clear();
-        dirty = true;
+        if(vertices.Count > 0)
+        {
+            for (int i = 0; i < vertices.Count; i++)
+            {
+                vertices[i].GetComponent<MyObject>().Recycle();
+            }
+            vertices.Clear();
+            dirty = true;
+        }
     }
 
     protected void UpdatePositions()

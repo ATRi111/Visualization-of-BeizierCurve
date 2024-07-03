@@ -19,6 +19,24 @@ public class DraggableVertex : Vertex, IDragHandler
     {
         if (transform.parent != null)
             area = transform.parent.GetComponentInChildren<Area2D>();
+        eventSystem.AddListener(EEvent.AfterLaunch, AfterLaunch);
+        eventSystem.AddListener(EEvent.AfterReset, AfterReset);
+    }
+
+    private void OnDisable()
+    {
+        eventSystem.RemoveListener(EEvent.AfterLaunch, AfterLaunch);
+        eventSystem.RemoveListener(EEvent.AfterReset,AfterReset);
+    }
+
+    private void AfterLaunch()
+    {
+        draggable = false;
+    }
+
+    private void AfterReset()
+    {
+        draggable = true;
     }
 
     public void OnDrag(PointerEventData eventData)
