@@ -18,6 +18,7 @@ public class BezierCurveController : MonoBehaviour
     private float speed = 1f;
     private const float DefaultInterval = 1f;
 
+    [SerializeField]
     private BezierCurveTimer timer;
 
     private void Awake()
@@ -49,15 +50,18 @@ public class BezierCurveController : MonoBehaviour
     }
 }
 
+[Serializable]
 class BezierCurveTimer : Metronome
 {
     private BezierCurveController controller;
     private IObjectManager objectManager;
     private float deltaT;
+    [SerializeField]
     private float t;
 
     private VertexManager answer;
-    private List<VertexManager> lines;
+    private VertexManager last;
+    [SerializeField]
     private List<Vector3> current;
     
     public void Initialize(float duration ,float times, BezierCurveController controller)
@@ -69,15 +73,11 @@ class BezierCurveTimer : Metronome
         deltaT = 1 / times;
         current = new();
         current.AddRange(controller.vertexManager.Positions);
-        lines = new();
+        BezierCurve.CalculateNext(current, t);
     }
 
     protected override void MyOnComplete(float _)
     {
-        t += deltaT;
-        if (t > 1f)
-            return;
-        
         if(current.Count > 1)
         {
             PaintLine();
@@ -90,29 +90,28 @@ class BezierCurveTimer : Metronome
         }
         else
         {
-            ClearLines();
+            ClearLine();
+            t += deltaT;
             current.AddRange(controller.vertexManager.Positions);
+            BezierCurve.CalculateNext(current, t);
         }
-        base.MyOnComplete(_);
+        if(t < 1f + 1E-3)
+            base.MyOnComplete(_);
     }
 
     private void PaintLine()
     {
-        VertexManager vertexManager = objectManager.Activate("VertexManager", Vector3.zero, Vector3.zero, controller.transform).Transform.GetComponent<VertexManager>();
-        lines.Add(vertexManager);
+        last = objectManager.Activate("VertexManager", Vector3.zero, Vector3.zero, controller.transform).Transform.GetComponent<VertexManager>();
         for (int i = 0;i < current.Count;i++)
         {
-            vertexManager.GenerateVertex(current[i]);
+            last.GenerateVertex(current[i]);
         }
     }
 
-    private void ClearLines()
+    private void ClearLine()
     {
-        for (int i = 0; i < lines.Count; i++)
-        {
-            lines[i].GetComponent<MyObject>().Recycle();
-        }
-        lines.Clear();
+        if (last != null)
+            last.MyObject.Recycle();
     }
 
     private void PaintAnswer()
@@ -123,7 +122,7 @@ class BezierCurveTimer : Metronome
 
     public void ClearAll()
     {
-        ClearLines();
+        ClearLine();
         answer.ClearVertices();
     }
 }

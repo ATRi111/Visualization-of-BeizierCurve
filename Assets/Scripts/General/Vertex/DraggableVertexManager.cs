@@ -27,9 +27,8 @@ public class DraggableVertexManager : VertexManager
         eventSystem.AddListener(EEvent.AfterReset, AfterReset);
     }
 
-    protected override void OnDestroy()
+    protected void OnDestroy()
     {
-        base.OnDestroy();
         eventSystem.RemoveListener(EEvent.AfterDraggableVertexChange, AfterVertexChange);
         eventSystem.RemoveListener(EEvent.AfterLaunch, AfterLaunch);
         eventSystem.RemoveListener(EEvent.AfterReset, AfterReset);

@@ -1,3 +1,4 @@
+using Services.ObjectPools;
 using System.Collections.Generic;
 using Tools;
 using UnityEngine;
@@ -12,12 +13,14 @@ public class Vertex : MonoBehaviour
         return temp.ResetZ(z);
     }
 
+    public MyObject MyObject { get; protected set; }
     protected SpriteRenderer spriteRenderer;
 
     protected virtual void Awake()
     {
         allVertices.Add(this);
         spriteRenderer = GetComponent<SpriteRenderer>();
+        MyObject = GetComponent<MyObject>();
     }
 
     protected virtual void OnDestroy()

@@ -1,7 +1,6 @@
 using Services;
 using Services.Event;
 using Services.ObjectPools;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,7 +8,7 @@ public class VertexManager : MonoBehaviour, ILine
 {
     protected IObjectManager objectManager;
     protected IEventSystem eventSystem;
-
+    public MyObject MyObject { get ; protected set; }
     protected readonly List<Vertex> vertices = new();
 
     public bool dirty;
@@ -33,6 +32,8 @@ public class VertexManager : MonoBehaviour, ILine
         objectManager = ServiceLocator.Get<IObjectManager>();
         eventSystem = ServiceLocator.Get<IEventSystem>();
         dirty = true;
+        MyObject = GetComponent<MyObject>();
+        MyObject.OnRecycle += OnRecycle;
     }
 
     protected virtual void Update()
@@ -40,7 +41,7 @@ public class VertexManager : MonoBehaviour, ILine
         
     }
 
-    protected virtual void OnDestroy()
+    protected virtual void OnRecycle()
     {
         ObjectPoolUtility.RecycleMyObjects(gameObject);
     }
@@ -56,7 +57,7 @@ public class VertexManager : MonoBehaviour, ILine
     {
         if (index >= 0 && index < vertices.Count)
         {
-            vertices[index].GetComponent<MyObject>().Recycle();
+            vertices[index].MyObject.Recycle();
             vertices.RemoveAt(index);
             dirty = true;
         }
@@ -75,7 +76,7 @@ public class VertexManager : MonoBehaviour, ILine
         {
             for (int i = 0; i < vertices.Count; i++)
             {
-                vertices[i].GetComponent<MyObject>().Recycle();
+                vertices[i].MyObject.Recycle();
             }
             vertices.Clear();
             dirty = true;

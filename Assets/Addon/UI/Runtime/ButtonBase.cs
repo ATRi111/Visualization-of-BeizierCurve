@@ -8,6 +8,8 @@ using UnityEngine.UI;
 public abstract class ButtonBase : MonoBehaviour
 {
     protected IEventSystem eventSystem;
+
+    protected TextMeshProUGUI tmp;
     public Button Button { get; private set; }
 
     protected virtual void Awake()
@@ -15,6 +17,7 @@ public abstract class ButtonBase : MonoBehaviour
         eventSystem = ServiceLocator.Get<IEventSystem>();
         Button = GetComponent<Button>();
         Button.onClick.AddListener(OnClick);
+        tmp = GetComponentInChildren<TextMeshProUGUI>();
     }
 
     protected abstract void OnClick();
