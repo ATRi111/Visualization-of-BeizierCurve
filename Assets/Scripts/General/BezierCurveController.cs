@@ -5,6 +5,7 @@ using Services.ObjectPools;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 public class BezierCurveController : MonoBehaviour
 {
@@ -70,6 +71,7 @@ class BezierCurveTimer : Metronome
         objectManager = ServiceLocator.Get<IObjectManager>();
         this.controller = controller;
         answer = controller.GetComponentInChildren<VertexManager>();
+        t = 0f;
         deltaT = 1 / times;
         current = new();
         current.AddRange(controller.vertexManager.Positions);
@@ -93,6 +95,7 @@ class BezierCurveTimer : Metronome
         {
             ClearLines();
             t += deltaT;
+            current.Clear();
             current.AddRange(controller.vertexManager.Positions);
             BezierCurve.CalculateNext(current, t);
         }

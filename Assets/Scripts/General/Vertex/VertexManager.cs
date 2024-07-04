@@ -33,6 +33,7 @@ public class VertexManager : MonoBehaviour, ILine
         eventSystem = ServiceLocator.Get<IEventSystem>();
         dirty = true;
         MyObject = GetComponent<MyObject>();
+        MyObject.OnActivate += OnActivate;
         MyObject.OnRecycle += OnRecycle;
     }
 
@@ -41,9 +42,15 @@ public class VertexManager : MonoBehaviour, ILine
         
     }
 
+    protected virtual void OnActivate()
+    {
+        dirty = true;
+    }
+
     protected virtual void OnRecycle()
     {
         ObjectPoolUtility.RecycleMyObjects(gameObject);
+        vertices.Clear();
     }
 
     public Vertex GenerateVertex(Vector3 position)
