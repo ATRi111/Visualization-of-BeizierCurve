@@ -160,7 +160,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4722729850511170065}
   - component: {fileID: 7182092303005655962}
-  - component: {fileID: 4683934613758749973}
   - component: {fileID: 7992299910915866608}
   m_Layer: 0
   m_Name: VertexManager
@@ -198,18 +197,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dirty: 0
---- !u!114 &4683934613758749973
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4169068057870839637}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a1e96c7a5efd0f46a827eec27809345, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7992299910915866608
 MonoBehaviour:
   m_ObjectHideFlags: 0
