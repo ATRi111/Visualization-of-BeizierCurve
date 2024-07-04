@@ -5,7 +5,6 @@ using Services.ObjectPools;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Searcher.SearcherWindow.Alignment;
 
 public class BezierCurveController : MonoBehaviour
 {
@@ -13,11 +12,12 @@ public class BezierCurveController : MonoBehaviour
     public DraggableVertexManager vertexManager;
 
     public Color color_answer;
+    public Color color_default;
 
-    [SerializeField]
-    [Range(0.25f, 4f)]
-    private float speed = 1f;
-    private const float DefaultInterval = 1f;
+    [Range(0.1f, 1f)]
+    public float interval = 0.5f;
+    [Range(5, 25)]
+    public int times;
 
     [SerializeField]
     private BezierCurveTimer timer;
@@ -41,13 +41,23 @@ public class BezierCurveController : MonoBehaviour
 
     public void AfterLaunch()
     {
-        timer.Initialize(DefaultInterval / speed, 10f, this);
+        timer.Initialize(interval, times, this);
     }
 
     public void AfterReset()
     {
         timer.Paused = true;
         timer.ClearAll();
+    }
+
+    public void Pause()
+    {
+        timer.Paused = true;
+    }
+
+    public void Continue()
+    {
+        timer.Paused = false;
     }
 }
 
@@ -64,8 +74,8 @@ class BezierCurveTimer : Metronome
     private List<VertexManager> lines;
     [SerializeField]
     private List<Vector3> current;
-    
-    public void Initialize(float duration ,float times, BezierCurveController controller)
+
+    public void Initialize(float duration, float times, BezierCurveController controller)
     {
         base.Initialize(duration);
         objectManager = ServiceLocator.Get<IObjectManager>();
@@ -108,7 +118,8 @@ class BezierCurveTimer : Metronome
         VertexManager vertexManager = objectManager.Activate("VertexManager", Vector3.zero, Vector3.zero, controller.transform).Transform.GetComponent<VertexManager>();
         for (int i = 0;i < current.Count;i++)
         {
-            vertexManager.GenerateVertex(current[i]);
+            Vertex vertex = vertexManager.GenerateVertex(current[i]); 
+            vertex.SetColor(controller.color_default);
         }
         lines.Add(vertexManager);
     }

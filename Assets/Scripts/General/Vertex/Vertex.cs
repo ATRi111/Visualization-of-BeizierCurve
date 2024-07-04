@@ -15,17 +15,25 @@ public class Vertex : MonoBehaviour
 
     public MyObject MyObject { get; protected set; }
     protected SpriteRenderer spriteRenderer;
+    private Color color_default;
 
     protected virtual void Awake()
     {
-        allVertices.Add(this);
         spriteRenderer = GetComponent<SpriteRenderer>();
+        color_default = spriteRenderer.color;
         MyObject = GetComponent<MyObject>();
+        MyObject.OnActivate += OnActivate;
+        MyObject.OnActivate -= OnActivate;
     }
 
-    protected virtual void OnDestroy()
+    protected virtual void OnActivate()
+    {
+        allVertices.Add(this);
+    }
+    protected virtual void OnRecycle()
     {
         allVertices.Remove(this);
+        SetColor(color_default);
     }
 
     public void SetColor(Color color)

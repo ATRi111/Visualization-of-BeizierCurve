@@ -10,7 +10,7 @@ public abstract class ButtonBase : MonoBehaviour
     protected IEventSystem eventSystem;
 
     protected TextMeshProUGUI tmp;
-    public Button Button { get; private set; }
+    public Button Button { get; protected set; }
 
     protected virtual void Awake()
     {
