@@ -57,7 +57,8 @@ public class BezierCurveController : MonoBehaviour
 
     public void Continue()
     {
-        timer.Paused = false;
+        if(!timer.Completed)
+            timer.Paused = false;
     }
 }
 

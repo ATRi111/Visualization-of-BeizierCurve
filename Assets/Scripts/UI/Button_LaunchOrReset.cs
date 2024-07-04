@@ -14,12 +14,12 @@ public class Button_LaunchOrReset : ButtonBase
                 if(value)
                 {
                     eventSystem.Invoke(EEvent.AfterLaunch);
-                    tmp.text = "÷ÿ÷√";
+                    tmp.text = "ÈáçÁΩÆ";
                 }
                 else
                 {
                     eventSystem.Invoke(EEvent.AfterReset);
-                    tmp.text = "∆Ù∂Ø";
+                    tmp.text = "ÂêØÂä®";
                 }
             }
         }
