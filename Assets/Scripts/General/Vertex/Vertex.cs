@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Vertex : MonoBehaviour
 {
-    public static HashSet<Vertex> allVertices = new();
+    public static HashSet<Vertex> AllVertices = new();
 
     public static Vector3 MouseToWorld(float z)
     {
@@ -23,16 +23,16 @@ public class Vertex : MonoBehaviour
         color_default = spriteRenderer.color;
         MyObject = GetComponent<MyObject>();
         MyObject.OnActivate += OnActivate;
-        MyObject.OnActivate -= OnActivate;
+        MyObject.OnRecycle += OnRecycle;
     }
 
     protected virtual void OnActivate()
     {
-        allVertices.Add(this);
+        AllVertices.Add(this);
     }
     protected virtual void OnRecycle()
     {
-        allVertices.Remove(this);
+        AllVertices.Remove(this);
         SetColor(color_default);
     }
 
