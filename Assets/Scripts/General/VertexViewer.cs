@@ -20,7 +20,7 @@ public class VertexViewer : MonoBehaviour
                     mark.Recycle();
                     mark = null;
                 }
-                if(value != null)
+                if(value != null && value is not DraggableVertex)
                 {
                     mark = objectManager.Activate("Mark", value.transform.position, Vector3.zero, transform);
                 }
