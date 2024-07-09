@@ -206,7 +206,7 @@ Transform:
   m_GameObject: {fileID: 50279567}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalPosition: {x: 7, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -776,7 +776,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 594229747088163460, guid: 25e00820905132b41b28679fada050d1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -12.09
+      value: -4.66
       objectReference: {fileID: 0}
     - target: {fileID: 594229747088163460, guid: 25e00820905132b41b28679fada050d1, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1210,7 +1210,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 594229747088163460, guid: 25e00820905132b41b28679fada050d1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.51
+      value: -0.07999992
       objectReference: {fileID: 0}
     - target: {fileID: 594229747088163460, guid: 25e00820905132b41b28679fada050d1, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1545,7 +1545,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 594229747088163460, guid: 25e00820905132b41b28679fada050d1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.67
+      value: 3.7600002
       objectReference: {fileID: 0}
     - target: {fileID: 594229747088163460, guid: 25e00820905132b41b28679fada050d1, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2375,7 +2375,7 @@ MonoBehaviour:
   vertexManager: {fileID: 1855943521}
   color_answer: {r: 1, g: 0, b: 0, a: 1}
   color_default: {r: 0, g: 0.58431375, b: 0.03529412, a: 1}
-  interval: 0.5
+  interval: 0.2
   times: 10
   timer:
     paused: 1
@@ -2516,14 +2516,6 @@ PrefabInstance:
     - target: {fileID: 6475205080041794895, guid: 7e799479554bf5b478d9f1de9e00f38d, type: 3}
       propertyPath: m_Name
       value: DraggableVertexManager
-      objectReference: {fileID: 0}
-    - target: {fileID: 6741098312727476151, guid: 7e799479554bf5b478d9f1de9e00f38d, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -6
-      objectReference: {fileID: 0}
-    - target: {fileID: 6741098312727476151, guid: 7e799479554bf5b478d9f1de9e00f38d, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
